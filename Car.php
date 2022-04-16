@@ -14,6 +14,9 @@ class Car
 
     private int $energyLevel;
 
+    private bool $hasParkBrake = true;
+
+
     public function __construct(string $color, int $nbSeats, string $energy )
     {
         $this->color = $color;
@@ -57,6 +60,9 @@ class Car
 
     public function start(): string
     {
+        if($this->hasParkBrake){
+            throw new Exception('Le frein à main est mis !');
+        }
         return "Vrooom ! ";
     }
 
@@ -71,11 +77,17 @@ class Car
         $sentence = "";
         while ($this->currentSpeed > 0) {
             $this->currentSpeed--;
-            $sentence .= "Brake !!!";
+            $sentence .= "Brake !!!" . PHP_EOL;
         }
         $sentence .= "I'm stopped !";
         return $sentence;
     }
+
+    public function setParkBrake(bool $isSet): void
+    {
+        $this->hasParkBrake = $isSet;
+    }
+
 
 
 
